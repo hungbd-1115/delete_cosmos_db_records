@@ -1,9 +1,12 @@
 const { CosmosClient } = require("@azure/cosmos");
+require("dotenv").config();
 
-const endpoint = "https://-xxxxxxxxxxxxstg.documents.azure.com:443";
-const key = "xxxxxxxxxxi5MQ==";
-const databaseName = "peer-conne-db-stg";
-const containerName = "stg-container";
+
+const endpoint = process.env.END_POINT;
+const key = process.env.KEY;
+const databaseName = process.env.DATABASE_NAME;
+const containerName = process.env.CONTAINER_NAME;
+
 
 const client = new CosmosClient({ endpoint, key });
 const limit = 100;
@@ -46,6 +49,7 @@ async function deleteBatch(container, resources) {
   await Promise.all(promises);
   console.log(`Deleted ${resources.length} items\r\n`);
   sum += resources.length;
+
 }
 
 main();
